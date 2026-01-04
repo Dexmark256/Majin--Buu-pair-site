@@ -98,7 +98,7 @@ contextInfo: {
 externalAdReply: {
 title: "]|I{•------» [ мαנιη вυυ ¢σηηє¢тє∂  ] «------•}I|[",
 thumbnailUrl: "https://files.catbox.moe/hjgbgt.jpg",
-sourceUrl: "https://whatsapp.com/channel/0029VbC24qF84OmF4G1kCy3N",
+sourceUrl: "https://github.com/Dexmark256/Majin-Buu-bot",
 mediaType: 1,
 renderLargerThumbnail: true
 }  
@@ -121,7 +121,7 @@ Join our official WhatsApp Channel:  https://whatsapp.com/channel/0029VbC24qF84O
 
 *💻 Source Code:*  
 Fork & explore the project on GitHub:  
-https://github.com/XdKing2/MALVIN-XD
+https://github.com/Dexmark256/Majin-Buu-bot
 
 > *© Powered by ᴅᴇxᴍᴀʀᴋ ᴛᴇᴄʜ *
 Stay cool and hack smart. ✌🏻*`;

@@ -77,9 +77,43 @@ var randomItem = selectRandomItem(items);
                         const string_session = mega_url.replace('https://mega.nz/file/', '');
                         let md = "malvin~" + string_session;
                         let code = await sock.sendMessage(sock.user.id, { text: md });
-                        let desc = `*Hey there, Majin Buu User!* 👋🏻
+                        let desc = `*Hey there, MAJIN-BUU User!* 👋🏻
 
-Thanks for using *Majin Buu Bot* — your session has been successfully created!
+Thanks for using *MAJIN-BUU* — your session has been successfully created!
+
+🔐 *Session ID:* Sent above  
+⚠️ *Keep it safe!* Do NOT share this ID with anyone.
+
+——————
+
+*✅ Stay Updated:*  
+Join our official WhatsApp Channel: https://whatsapp.com/channel/0029VbC24qF84OmF4G1kCy3N
+
+*💻 Source Code:*  
+Fork & explore the project on GitHub: https://github.com/Dexmark256/Majin-Buu-bot
+
+——————
+
+> *© Powered by ᴅᴇxᴍᴀʀᴋ ᴛᴇᴄʜ *
+Stay cool and hack smart. ✌🏻`; 
+                        await sock.sendMessage(sock.user.id, {
+text: desc,
+contextInfo: {
+externalAdReply: {
+title: "ᴅᴇxᴍᴀʀᴋ ᴛᴇᴄʜ",
+thumbnailUrl: "https://files.catbox.moe/hjgbgt.jpg",
+sourceUrl: "https://whatsapp.com/channel/0029VbC24qF84OmF4G1kCy3N",
+mediaType: 1,
+renderLargerThumbnail: true
+}  
+}
+},
+{quoted:code })
+                    } catch (e) {
+                            let ddd = sock.sendMessage(sock.user.id, { text: e });
+                            let desc = `Hey there, MAJIN BUU User!* 👋🏻
+
+Thanks for using *MAJIN BUU BOT* — your session has been successfully created!
 
 🔐 *Session ID:* Sent above  
 ⚠️ *Keep it safe!* Do NOT share this ID with anyone.
@@ -91,54 +125,19 @@ Join our official WhatsApp Channel:
 https://whatsapp.com/channel/0029VbC24qF84OmF4G1kCy3N
 
 *💻 Source Code:*  
-Fork & explore the project on GitHub:  
-https://github.com/XdKing2/MALVIN-XD
+Fork & explore the project on GitHub:  https://github.com/Dexmark256/Majin-Buu-bot
 
 ——————
 
-> *© Powered by Dexmark Tech*
-Stay cool and hack smart. ✌🏻`; 
-                        await sock.sendMessage(sock.user.id, {
-text: desc,
-contextInfo: {
-externalAdReply: {
-title: "ᴅᴇxᴍᴀʀᴋ ᴛᴇᴄʜ ",
-thumbnailUrl:"https://files.catbox.moe/hjgbgt.jpg",
-sourceUrl: "",
-mediaType: 1,
-renderLargerThumbnail: true
-}  
-}
-},
-{quoted:code })
-                    } catch (e) {
-                            let ddd = sock.sendMessage(sock.user.id, { text: e });
-                            let desc = `Hey there, Majin Buu User!* 👋🏻
-
-Thanks for using *MAJIN BUU BOT* — your session has been successfully created!
-
-🔐 *Session ID:* Sent above  
-⚠️ *Keep it safe!* Do NOT share this ID with anyone.
-
-——————
-
-*✅ Stay Updated:*  
-Join our official WhatsApp Channel:  https://whatsapp.com/channel/0029VbC24qF84OmF4G1kCy3N
-
-*💻 Source Code:*  
-Fork & explore the project on GitHub:
-
-——————
-
-> *© Powered by Malvin King*
+> *© Powered by ᴅᴇxᴍᴀʀᴋ ᴛᴇᴄʜ *
 Stay cool and hack smart. ✌🏻`;
                             await sock.sendMessage(sock.user.id, {
 text: desc,
 contextInfo: {
 externalAdReply: {
-title: "ᴍᴀʟᴠɪɴ-xᴅ",
+title: "ᴅᴇxᴍᴀʀᴋ ᴛᴇᴄʜ ",
 thumbnailUrl: "https://i.imgur.com/GVW7aoD.jpeg",
-sourceUrl: "https://whatsapp.com/channel/0029VbA6MSYJUM2TVOzCSb2A",
+sourceUrl:"https://whatsapp.com/channel/0029VbC24qF84OmF4G1kCy3N",
 mediaType: 2,
 renderLargerThumbnail: true,
 showAdAttribution: true
@@ -155,7 +154,7 @@ showAdAttribution: true
                     process.exit();
                 } else if (connection === "close" && lastDisconnect && lastDisconnect.error && lastDisconnect.error.output.statusCode != 401) {
                     await delay(10);
-                    MALVIN_XD_PAIR_CODE();
+                    MAJIN_BUU_PAIR_CODE();
                 }
             });
         } catch (err) {
@@ -166,7 +165,7 @@ showAdAttribution: true
             }
         }
     }
-   return await MALVIN_XD_PAIR_CODE();
+   return await MAJIN_BUU_PAIR_CODE();
 });/*
 setInterval(() => {
     console.log("☘️ 𝗥𝗲𝘀𝘁𝗮𝗿𝘁𝗶𝗻𝗴 𝗽𝗿𝗼𝗰𝗲𝘀𝘀...");

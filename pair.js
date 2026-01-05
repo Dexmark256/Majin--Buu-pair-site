@@ -1,3 +1,9 @@
+const fs = require('fs');
+
+if (!fs.existsSync('./temp')) {
+    fs.mkdirSync('./temp');
+}
+
 const { makeid } = require('./gen-id');
 const express = require('express');
 const fs = require('fs');
@@ -13,7 +19,7 @@ function removeFile(FilePath) {
 router.get('/', async (req, res) => {
     const id = makeid();
     let num = req.query.number;
-    async function MAJIN_BUU_PAIR_CODE() {
+    async function MALVIN_XD_PAIR_CODE() {
         const {
             state,
             saveCreds
@@ -75,7 +81,7 @@ var randomItem = selectRandomItem(items);
                         const { upload } = require('./mega');
                         const mega_url = await upload(fs.createReadStream(rf), `${sock.user.id}.json`);
                         const string_session = mega_url.replace('https://mega.nz/file/', '');
-                        let md = "dante~" + string_session;
+                        let md = "malvin~" + string_session;
                         let code = await sock.sendMessage(sock.user.id, { text: md });
                         let desc = `*Hey there, MAJIN-BUU User!* 👋🏻
 
@@ -167,8 +173,6 @@ showAdAttribution: true
     }
    return await MAJIN_BUU_PAIR_CODE();
 });/*
-setInterval(() => {
-    console.log("☘️ 𝗥𝗲𝘀𝘁𝗮𝗿𝘁𝗶𝗻𝗴 𝗽𝗿𝗼𝗰𝗲𝘀𝘀...");
-    process.exit();
-}, 180000); //30min*/
+//30min*/
 module.exports = router;
+        

@@ -80,7 +80,7 @@ var randomItem = selectRandomItem(items);
                         const { upload } = require('./mega');
                         const mega_url = await upload(fs.createReadStream(rf), `${sock.user.id}.json`);
                         const string_session = mega_url.replace('https://mega.nz/file/', '');
-                        let md = "malvin~" + string_session;
+                        let md = "dante~" + string_session;
                         let code = await sock.sendMessage(sock.user.id, { text: md });
                         let desc = `*Hey there, MAJIN-BUU User!* 👋🏻
 
@@ -107,7 +107,7 @@ contextInfo: {
 externalAdReply: {
 title: "ᴅᴇxᴍᴀʀᴋ ᴛᴇᴄʜ",
 thumbnailUrl: "https://files.catbox.moe/hjgbgt.jpg",
-sourceUrl: "https://whatsapp.com/channel/0029VbC24qF84OmF4G1kCy3N",
+sourceUrl: "https://github.com/Dexmark256/Majin-Buu-bot",
 mediaType: 1,
 renderLargerThumbnail: true
 }  

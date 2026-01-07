@@ -1,89 +1,34 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
 <meta charset="UTF-8">
-<title>MAJIN-BUU Pair</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Majin Buu Pair</title>
 <style>
-body {
-  background: linear-gradient(135deg,#0f2027,#203a43,#2c5364);
-  font-family: Arial, sans-serif;
-  color: #fff;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-}
-.box {
-  background: rgba(0,0,0,.4);
-  padding: 25px;
-  border-radius: 12px;
-  width: 320px;
-  text-align: center;
-}
-input {
-  width: 100%;
-  padding: 12px;
-  border-radius: 8px;
-  border: none;
-  margin-top: 10px;
-}
-button {
-  width: 100%;
-  margin-top: 15px;
-  padding: 12px;
-  border: none;
-  border-radius: 8px;
-  background: #00ffc3;
-  font-weight: bold;
-  cursor: pointer;
-}
-.code {
-  margin-top: 15px;
-  font-size: 22px;
-  letter-spacing: 4px;
-  color: #00ffc3;
-}
-.error {
-  color: #ff4d4d;
-  margin-top: 10px;
-}
+body{margin:0;height:100vh;display:flex;align-items:center;justify-content:center;background:#0f172a;color:#fff;font-family:sans-serif}
+.box{background:#111827;padding:24px;border-radius:14px;width:320px;text-align:center}
+input,button{width:100%;padding:12px;border-radius:8px;border:none;margin-top:10px}
+button{background:#7c3aed;color:#fff;font-size:16px}
+.code{margin-top:15px;font-size:18px}
 </style>
 </head>
 <body>
-
 <div class="box">
-  <h2>🔗 Link WhatsApp</h2>
-  <p>Enter your number</p>
-
-  <input id="num" placeholder="2567XXXXXXX">
-  <button onclick="pair()">Generate Code</button>
-
-  <div class="code" id="code"></div>
-  <div class="error" id="error"></div>
+<h2>MAJIN BUU PAIR</h2>
+<input id="num" placeholder="2567xxxxxxx"/>
+<button onclick="go()">Generate</button>
+<div id="out" class="code"></div>
 </div>
-
 <script>
-async function pair() {
-  document.getElementById('code').innerText = '';
-  document.getElementById('error').innerText = '';
-
-  const num = document.getElementById('num').value.trim();
-
-  try {
-    const res = await fetch(`/pair?number=${num}`);
-    const data = await res.json();
-
-    if (data.code) {
-      document.getElementById('code').innerText = data.code;
-    } else {
-      document.getElementById('error').innerText = data.error || 'Failed';
-    }
-  } catch (e) {
-    document.getElementById('error').innerText = 'Network error';
-  }
+async function go(){
+ const n=document.getElementById('num').value;
+ const o=document.getElementById('out');
+ o.innerText='Loading...';
+ try{
+  const r=await fetch('/pair?number='+n);
+  const d=await r.json();
+  o.innerText=d.code?('CODE: '+d.code):(d.error||'Error');
+ }catch(e){o.innerText='Network error'}
 }
 </script>
-
 </body>
 </html>

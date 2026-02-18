@@ -1,14 +1,14 @@
 
 {
-  "name": "ARSLAN-MD-PAIR",
+  "name": "MAJIN-BUU-PAIR",
   "version": "1.0.0",
   "description": "A multi-functional WhatsApp bot with web pairing functionality",
   "main": "index.js",
   "type": "commonjs",
   "scripts": {
     "start": "pm2 start index.js --deep-monitoring --attach --name ARSLAN-MD",
-    "stop": "pm2 stop ARSLAN-MD",
-    "restart": "pm2 restart ARSLAN-MD",
+    "stop": "pm2 stop MAJINN-BUU",
+    "restart": "pm2 restart MAJIN-BUU",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],

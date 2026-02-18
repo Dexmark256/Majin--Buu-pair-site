@@ -1,9 +1,9 @@
 {
-    "name": "pair session",
+    "name": "Majin Buu Pair",
     "description": "Web Session Generator",
     "logo": "https://i.imgur.com/teQzVR1.jpeg",
-    "repository": "https://github.com/XdKing2/malvin-pair",
-    "keywords": ["MalvinTech","XdKing2"],
+    "repository": "https://github.com/Dexmark256/md.pair256",
+    "keywords": ["DexmarkTech","Majin Buu"],
     "success_url": "/", 
     "buildpacks": [{ "url": "https://github.com/heroku/heroku-buildpack-nodejs#latest" } ],
     "env": {      

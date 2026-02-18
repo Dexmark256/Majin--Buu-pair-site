@@ -1,12 +1,11 @@
-{
+yo{
 "name": "web-pair",
     "version": "0.0.1",
     "description": "A multi functional whatsapp bot Web paircode.",
     "main": "index.js",
-    "scripts": {
-      "start": "pm2 start index.js --deep-monitoring --attach --name Majin buu-bot",
-      "stop": "pm2 stop majin-buu",
-     "restart": "pm2 restart majin buu"
+    ""scripts": {
+  "start": "node index.js"
+    }"
     },
   "dependencies": {
    "@whiskeysockets/baileys": "^6.7.17",          
@@ -19,7 +18,6 @@
     "express": "^4.18.1",
     "path": "^0.12.7",
     "megajs": "1.1.7",
-    "pm2": "^5.4.0",
     "async-mutex":"0.4.1"
    }
 }

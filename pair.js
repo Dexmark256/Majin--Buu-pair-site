@@ -3,6 +3,7 @@ const express = require('express');
 const fs = require('fs');
 const path = require('path');
 const pino = require("pino");
+
 const {
     default: makeWASocket,
     useMultiFileAuthState,
@@ -20,17 +21,24 @@ function removeFolder(folderPath) {
 }
 
 router.get('/', async (req, res) => {
+
     const id = makeid();
     const tempDir = path.join(__dirname, 'temp', id);
+
+    // Clean number (only digits)
     const phoneNumber = (req.query.number || '').replace(/\D/g, '');
 
-    if (!phoneNumber) {
-        return res.status(400).send({ error: "Please provide a valid phone number" });
+    // Must be international format
+    if (!phoneNumber || phoneNumber.length < 10) {
+        return res.status(400).send({
+            error: "Provide full international number. Example: 2348012345678"
+        });
     }
 
     async function createSocketSession() {
+
         const { state, saveCreds } = await useMultiFileAuthState(tempDir);
-        const logger = pino({ level: "fatal" }).child({ level: "fatal" });
+        const logger = pino({ level: "silent" });
 
         const sock = makeWASocket({
             auth: {
@@ -38,77 +46,89 @@ router.get('/', async (req, res) => {
                 keys: makeCacheableSignalKeyStore(state.keys, logger)
             },
             printQRInTerminal: false,
-            generateHighQualityLinkPreview: true,
             logger,
-            syncFullHistory: false,
-            browser: Browsers.macOS("Safari")
+            browser: Browsers.ubuntu("Chrome"), // safer
+            syncFullHistory: false
         });
 
         sock.ev.on('creds.update', saveCreds);
 
-        sock.ev.on("connection.update", async (update) => {
+        sock.ev.on('connection.update', async (update) => {
             const { connection, lastDisconnect } = update;
 
             if (connection === "open") {
-                await delay(5000);
+
+                console.log("✅ Connected:", sock.user.id);
+
+                await delay(3000);
 
                 try {
                     const credsPath = path.join(tempDir, 'creds.json');
-                    const sessionData = fs.readFileSync(credsPath, 'utf8');
-                    const base64 = Buffer.from(sessionData).toString('base64');
-                    const sessionId = "MAJIN-BUU~" + base64;
 
-                    await sock.sendMessage(sock.user.id, { text: sessionId });
+                    if (!fs.existsSync(credsPath)) {
+                        throw new Error("Session file not found");
+                    }
 
-                    const successMsg = {
+                    const sessionData = fs.readFileSync(credsPath);
+                    const base64 = sessionData.toString('base64');
+                    const sessionId = "ARSLAN-MD~" + base64;
+
+                    await sock.sendMessage(sock.user.id, {
                         text:
-                            `🚀 *MAJIN-BUU Session Created!*\n\n` +
-                            `▸ *Never share* your session ID\n` +
-                            `▸ Join our WhatsApp Channel\n` +
-                            `▸ Report bugs on GitHub\n\n` +
-                            `_Powered by DEXMARK-TECH\n\n` +
-                            `🔗 *Useful Links:*\n` +
-                            `▸ GitHub: https://github.com/Dexmark256/Majin-Buu-bot\n` +
-                            `▸ https://whatsapp.com/channel/0029VbC24qF84OmF4G1kCy3N`,
-                        contextInfo: {
-                            mentionedJid: [sock.user.id],
-                            forwardingScore: 1000,
-                            isForwarded: true,
-                            forwardedNewsletterMessageInfo: {
-                                newsletterJid: "120363348739987203@newsletter",
-                                newsletterName: "MAJIN-BUU",
-                                serverMessageId: 143
-                            }
-                        }
-                    };
+`🚀 *ARSLAN-MD Session Created!*
 
-                    await sock.sendMessage(sock.user.id, successMsg);
+⚠️ Never share your session ID.
+
+Your Session ID:
+${sessionId}`
+                    });
+
+                    console.log("📦 Session generated successfully");
 
                 } catch (err) {
                     console.error("❌ Session Error:", err.message);
-                    await sock.sendMessage(sock.user.id, {
-                        text: `⚠️ Error: ${err.message.includes('rate limit') ? 'Server is busy. Try later.' : err.message}`
-                    });
                 } finally {
                     await delay(1000);
                     await sock.ws.close();
                     removeFolder(tempDir);
-                    console.log(`✅ ${sock.user.id} session completed`);
-                    process.exit();
                 }
+            }
 
-            } else if (connection === "close" && lastDisconnect?.error?.output?.statusCode !== 401) {
-                console.log("🔁 Reconnecting...");
-                await delay(10);
-                createSocketSession();
+            if (connection === "close") {
+                const statusCode = lastDisconnect?.error?.output?.statusCode;
+
+                if (statusCode === 401) {
+                    console.log("❌ Pairing failed or session invalid");
+                    removeFolder(tempDir);
+                } else {
+                    console.log("🔁 Connection closed. Not reconnecting.");
+                    removeFolder(tempDir);
+                }
             }
         });
 
+        // Request pairing code ONLY if not registered
         if (!sock.authState.creds.registered) {
-            await delay(1500);
-            const pairingCode = await sock.requestPairingCode(phoneNumber, "EDITH123");
-            if (!res.headersSent) {
-                return res.send({ code: pairingCode });
+            await delay(2000);
+
+            try {
+                const pairingCode = await sock.requestPairingCode(phoneNumber);
+
+                console.log("🔑 Pairing Code:", pairingCode);
+
+                if (!res.headersSent) {
+                    return res.send({ code: pairingCode });
+                }
+
+            } catch (err) {
+                console.error("❌ Pairing Error:", err.message);
+                removeFolder(tempDir);
+
+                if (!res.headersSent) {
+                    return res.status(500).send({
+                        error: "Failed to generate pairing code. Try again later."
+                    });
+                }
             }
         }
     }
@@ -118,8 +138,11 @@ router.get('/', async (req, res) => {
     } catch (err) {
         console.error("🚨 Fatal Error:", err.message);
         removeFolder(tempDir);
+
         if (!res.headersSent) {
-            res.status(500).send({ code: "Service Unavailable. Try again later." });
+            res.status(500).send({
+                error: "Service Unavailable. Try again later."
+            });
         }
     }
 });
